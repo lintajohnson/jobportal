@@ -3,7 +3,7 @@
 
 <html>
  <head>
-		<title>My Page</title>
+		<title>Job Portal</title>
 		 <link rel="stylesheet" href="style.css" />
 </head>
 
