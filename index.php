@@ -1,7 +1,7 @@
 <?php
 include("header.php");
 ?>
-	                <div >
+	                <div>
 	                    <img id="img1"src="F:\cinema\Download\banner.jpg"/>
 	                </div>
                         <div style="clear:both;">

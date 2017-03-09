@@ -1,45 +1,40 @@
 <?php
 include("header.php");
-include("connect.php");
+
 ?>
 <?php
- $email = $pass = $con= $name = $location = $number = $experience = $skills = $resume= $current= $favour = $favorites= $fileupload="";
- $emailerror = $passerror = $conerror= $nameerror = $locationerror= $noerror= $experror= $skillserror= $resumeerror= $currerror= $faverror=$favorerror= $fileerror="";
- 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if(isset($_POST["submit"])){
+	
 	if (empty($_POST["email"])) {
     $emailerror = "email is required";
     } 
 	else {
-  $email= test_input($_POST["email"]);
+    $email= test_input($_POST["email"]);
 	if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-      $emailerror = "Invalid email format"; 
+    $emailerror = "Invalid email format"; 
     }
 	}
   
 	if(empty($_POST["pass"])) {
-		$passerror="password is required";
+	$passerror="password is required";
 	}
 	else{
-  $pass= test_input($_POST["pass"]);
-	}
-	if(empty($_POST["con"])) {
-		$conerror="";
-	}
-	else{
-    $con = test_input($_POST["con"]);
+    $pass= test_input($_POST["pass"]);
+    if($_POST['pass'] != $_POST['con']){ 
+    $passerror = 'Passwords should be same<br>'; 
+    }
 	}
 	if(empty($_POST["name"])) {
 		$nameerror="name is required";
 	}
 	else{
-  $name = test_input($_POST["name"]);
+    $name = test_input($_POST["name"]);
 	if (!preg_match("/^[a-zA-Z ]*$/",$name)) {
       $nameerror = "Only letters and white space allowed"; 
     }
 	}
 	if(empty($_POST["loc"])) {
-		$locationerror="location is required";
+		$locerror="location is required";
 	}
 	else{
     $location = test_input($_POST["loc"]);
@@ -51,13 +46,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $number = test_input($_POST["no"]);
 	}
 	if(empty($_POST["zip"])) {
-		$experror="experience is required";
+		$ziperror="experience is required";
 	}
 	else{
   $experience = test_input($_POST["zip"]);
 	}
 	if(empty($_POST["key"])) {
-		$skillserror="skills is required";
+		$keyerror="skills is required";
 	}
 	else{
   $skills = test_input($_POST["key"]);
@@ -74,39 +69,28 @@ if(empty($_POST["resume"])) {
 	else{
     $current = test_input($_POST["current"]);
 	}
-	if(empty($_POST["favour"])) {
-		$faverror="";
+	if(empty($_POST["favor"])) {
+		$favorerror="";
 	}
 	else{
     $favor = test_input($_POST["favor"]);
 	}
 	if(empty($_POST["favorites"])) {
-		$favorerror="";
+		$faverror="";
 	}
 	else{
     $favorites = test_input($_POST["favorites"]);
 	}
 	if(empty($_POST["fileupload"])) {
-		$filerror="";
+		$fileerror="";
 	}
 	else{
     $fileupload = test_input($_POST["fileupload"]);
 	}
-}
+	
 
-function test_input($data) {
-  $data = trim($data);
-  $data = stripslashes($data);
-  $data = htmlspecialchars($data);
-  return $data;
-}
-?>
-<?php
-if(isset($_POST["submit"]))
-{
 		$email=$_POST['email'];
 		$pass=md5($_POST['pass']);
-		$con=md5($_POST['con']);
 		$name=$_POST['name'];
 		$loc=$_POST['loc'];
 		$no=$_POST['no'];
@@ -117,18 +101,19 @@ if(isset($_POST["submit"]))
 		$favor=$_POST['favor'];
 		$favorites=$_POST['favorites'];
 		$fileupload=$_POST['fileupload'];
-
- $in=$link->query("INSERT INTO user_register(email,password,con_password,name,curr_loc,mob_no,total_exp,key_skills,res_head,curr_ind,fun_area,basic_grad,attach_res)
-    VALUES ('$email','$pass','$con','$name','$loc','$no','$zip','$key','$resume','$current','$favor','$favorites','$fileupload')");
-
-     if($in>0){
-echo "inserted successfully";
-} else {
-echo "failed";
+if($emailerror != "" || $passerror != "" || $nameerror != ""  ||$locerror!="" || $noerror!="" || $ziperror!="" || $keyerror!="" || $resumeerror!="" || $currerror!="" ||$favorerror!="" ||$faverror!="" || $fileerror!="")
+{
+   echo "Error!";
 }
+else{
+ $in=$link->query("INSERT INTO user_register(email,password,name,curr_loc,mob_no,total_exp,key_skills,res_head,curr_ind,fun_area,basic_grad,attach_res)
+    VALUES ('$email','$pass','$name','$loc','$no','$zip','$key','$resume','$current','$favor','$favorites','$fileupload')");
+	echo"sucessfully";
 
-$link->close();
 }
+	}
+	
+	
 ?>
 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
 <table border='0' width='480px'align='center'>
@@ -141,7 +126,7 @@ $link->close();
 <table border='0' width='480px' align='center'>
 <tr>
     <td align='center'>Email ID:</td>
-    <td><input type='text' name='email'></td>
+    <td><input type='text' name='email' value='<?php echo htmlspecialchars($email);?>'></td>
 	<td><span class="error">* <?php echo $emailerror;?></span></td>
 </tr>
 <tr>
@@ -162,7 +147,7 @@ $link->close();
 <tr>
     <td align='center'>Current Location:</td>
     <td><input type='text' name='loc'></td>
-	<td><span class="error">* <?php echo $locationerror;?></span></td>
+	<td><span class="error">* <?php echo $locerror;?></span></td>
 </tr>
 </tr>
 <tr>
@@ -173,13 +158,13 @@ $link->close();
 <tr>
     <td align='center'>Total Experience:</td>
     <td><input type='text' name='zip'></td>
-	<td><span class="error">* <?php echo $experror;?></span></td>
+	<td><span class="error">* <?php echo $ziperror;?></span></td>
 </tr>
 </tr>
 <tr>
     <td align='center'>Key Skills:</td>
     <td><textarea name='key'></textarea></td>
-	<td><span class="error">* <?php echo $skillserror;?></span></td>
+	<td><span class="error">* <?php echo $keyerror;?></span></td>
 </tr>
 </tr>
 <tr>
@@ -200,7 +185,7 @@ $link->close();
 	<option value="Developer">Developer</option> 
 	<option value="Software Engineer">Software Engineer</option>
 	<option value="Project Manager">Project Manager</option> </td>
-	<td><span class="error"> <?php echo $faverror;?></span></td>
+	<td><span class="error"> <?php echo $favorerror;?></span></td>
 </tr>
 <tr>
     <td align='center'>Basic Graduation:</td>
@@ -211,7 +196,7 @@ $link->close();
 	<option value="mca">MCA</option> 
 	<option value="btech">Btech</option>
 	<option value="mtech">Mtech</option> 
-	<td><span class="error"><?php echo $favorerror;?></span></td>
+	<td><span class="error"><?php echo $faverror;?></span></td>
 	</select>
 	</td>
 </tr>
@@ -234,4 +219,3 @@ $link->close();
 <?php
 include("footer.php");
 ?>
- 

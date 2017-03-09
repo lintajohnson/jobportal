@@ -1,10 +1,8 @@
 <?php
 include("header.php");
-include("connect.php");
+
 ?>
 <?php
-$email= $pass= $confirm= $comp= $Company_Type= $favorites= $add= $count= $state= $city= $pin= $contact= $person="";
-$emailerror = $passerror= $conerror=$nameerror= $noerror= $faverror= $adderror=$counterror=$stateerror=$cityerror=$pinerror=$contacterror= $personerror="";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	if (empty($_POST["email"])) {
@@ -16,18 +14,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $emailerror = "Invalid email format"; 
     }
 	}
-if (empty($_POST["pass"])) {
- $passerror="Password is required";
-}
-else {
-$confirm = test_input($_POST["pass"]);
-}
-if (empty($_POST["confirm"])) {
- $conerror="";
-}
-else {
-$pass = test_input($_POST["confirm"]);
-}
+if(empty($_POST["pass"])) {
+	$passerror="password is required";
+	}
+	else{
+    $pass= test_input($_POST["pass"]);
+    if($_POST['pass'] != $_POST['confirm']){ 
+    $passerror = 'Passwords should be same<br>'; 
+    }
+	}
 
 if (empty($_POST["comp"])) {
 $nameerror = "Name is required";
@@ -93,12 +88,6 @@ else{
 	$person=test_input($_POST["person"]);
 }
 }
-function test_input($data) {
-$data = trim($data);
-$data = stripslashes($data);
-$data = htmlspecialchars($data);
-return $data;
-}
 ?>
 <?php
 
@@ -106,9 +95,8 @@ if(isset($_POST["regist"]))
 	{
 		$em=$_POST['email'];
 		$pa=md5($_POST['pass']);
-		$con=md5($_POST['confirm']);
 		$cmy=$_POST['comp'];
-		$co=$_POST['Company_Type'];
+		$co=$_POST['CompanyType'];
 		$fav=$_POST['favorites'];
 		$ad=$_POST['add'];
 		$nt=$_POST['count'];
@@ -117,8 +105,11 @@ if(isset($_POST["regist"]))
 		$pi=$_POST['pin'];
 		$tact=$_POST['contact'];
 		$per=$_POST['person'];
-	
-		$in=$link->query("insert into employer_register(email,password,con_password,comp_name,comp_type,industry_type,address,country,state,city,pin_code,contact_no,contact_person) values('$em','$pa','$con','$cmy','$co','$fav','$ad','$nt','$st','$ci','$pi','$tact','$per')");
+	if($emailerror != "" || $passerror != "" || $comperror != ""  ||$locerror!="" || $noerror!="" || $ziperror!="" || $keyerror!="" || $resumeerror!="" || $currerror!="" ||$favorerror!="" ||$faverror!="" || $fileerror!="")
+{
+   echo "Error!";
+}
+		$in=$link->query("insert into employer_register(email,password,comp_name,comp_type,industry_type,address,country,state,city,pin_code,contact_no,contact_person) values('$em','$pa','$cmy','$co','$fav','$ad','$nt','$st','$ci','$pi','$tact','$per')");
 		if($in>0)
 		{
 			echo"inserted sucessfully";
