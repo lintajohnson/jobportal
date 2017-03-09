@@ -4,7 +4,7 @@ include("connect.php");
 ?>
 <?php
 $email= $pass= $confirm= $comp= $Company_Type= $favorites= $add= $count= $state= $city= $pin= $contact= $person="";
-$emailError = $passError= $conerror=$nameError= $noError= $faverror= $adderror=$counterror=$stateerror=$cityerror=$pinerror=$contacterror= $personError="";
+$emailerror = $passerror= $conerror=$nameerror= $noerror= $faverror= $adderror=$counterror=$stateerror=$cityerror=$pinerror=$contacterror= $personerror="";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	if (empty($_POST["email"])) {
@@ -108,7 +108,7 @@ if(isset($_POST["regist"]))
 		$pa=md5($_POST['pass']);
 		$con=md5($_POST['confirm']);
 		$cmy=$_POST['comp'];
-		$co=$_POST['Company Type'];
+		$co=$_POST['Company_Type'];
 		$fav=$_POST['favorites'];
 		$ad=$_POST['add'];
 		$nt=$_POST['count'];
@@ -152,7 +152,7 @@ if(isset($_POST["regist"]))
 <tr>
     <td align='center'>Confirm Password:</td>
     <td><input type="password" name="confirm"></td>
-	<td><span class="error">* <?php echo $nconerror;?></span></td>
+	<td><span class="error"><?php echo $conerror;?></span></td>
 </tr>
 <tr>
     <td align='center'>Company Name:</td>
@@ -174,39 +174,39 @@ if(isset($_POST["regist"]))
 	<option value="Software">Software</option>
 	<option value="Hardware">Hardware</option>
 	<option value="Networking">Networking</option>
-	<td><span class="error">* <?php echo $faverror;?></span></td>
+	<td><span class="error"> <?php echo $faverror;?></span></td>
 	</select>
 	</td>
 </tr>
 <tr>
     <td align='center'>Address:</td>
     <td><input type="text" name="add"></td>
-	<td><span class="error">* <?php echo $adderror;?></span></td>
+	<td><span class="error"><?php echo $adderror;?></span></td>
 </tr>
 <tr>
     <td align='center'>Country:</td>
     <td><input type="text" name="count"></td>
-	<td><span class="error">* <?php echo $counterror;?></span></td>
+	<td><span class="error"> <?php echo $counterror;?></span></td>
 </tr>
 <tr>
     <td align='center'>State:</td>
     <td><input type="text" name="state"></td>
-	<td><span class="error">* <?php echo $stateerror;?></span></td>
+	<td><span class="error"> <?php echo $stateerror;?></span></td>
 </tr>
 <tr>
     <td align='center'>City:</td>
     <td><input type="text" name="city"></td>
-	<td><span class="error">* <?php echo $cityerror;?></span></td>
+	<td><span class="error"><?php echo $cityerror;?></span></td>
 </tr>
 <tr>
     <td align='center'>Pincode:</td>
     <td><input type="text" name="pin"></td>
-	<td><span class="error">* <?php echo $pinerror;?></span></td>
+	<td><span class="error"><?php echo $pinerror;?></span></td>
 </tr>
 <tr>
     <td align='center'>Contact No:</td>
     <td><input type="text" name="contact"></td>
-	<td><span class="error">* <?php echo $contacterror;?></span></td>
+	<td><span class="error">*<?php echo $contacterror;?></span></td>
 
 </tr>
 <tr>
