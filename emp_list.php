@@ -1,46 +1,52 @@
 <?php
 include("header.php");
 ?>
-<form action="" method="post">
+
+<?php
+
+		
+         $in=$link->query("SELECT *FROM user_register");
+		
+		 
+?>
+
 <table  border="10" width='480px'align='center'>
+<thead>
    <tr>
-      <th colspan="6">
-         <h3><br>EMPLOYEE LIST</h3>
-      </th>
-   </tr>
-      <th>Sl No</th>
-      <th>Name</th>
-	  <th>Experience</th>
-	  <th>Qualification</th>
-	  <th>Location</th>
-	  <th>Location</th>
+      <th colspan="6"> <h3><br>EMPLOYEE LIST</h3></th>
 	  
-   <tr>
-      <td>Data 1</td>
-      <td>Data 2</td>
-	  <td>Data 2</td>
-	  <td>Data 2</td>
-	  <td>Data 2</td>
-	  <td><input type="submit" value="view">
    </tr>
+   
    <tr>
-      <td>Data 3</td>
-      <td>Data 4</td>
-	  <td>Data 2</td>
-	  <td>Data 2</td>
-	  <td>Data 2</td>
-	   <td><input type="submit" value="view">
-   </tr>
-   <tr>
-      <td>Data 5</td>
-      <td>Data 6</td>
-	  <td>Data 2</td>
-	  <td>Data 2</td>
-	  <td>Data 2</td>
-	   <td><input type="submit" value="view">
-   </tr>
+      <th>Sl No</th>
+      <th >Name</th>
+	  <th >Mobile No:</th>
+	  <th>Experience</th>
+	  <th>Location</th>
+	  <th>Click Here</th>
+	  </tr>
+</thead>
+	<?php
+          while( $row = mysqli_fetch_array( $in ) ){
+			  
+		
+		    ?>
+	  <tbody>
+   
+       
+          <tr>
+              <td><?php echo $row['id']; ?></td>
+              <td><?php echo $row['name']; ?></td>
+              <td><?php echo $row['mob_no']; ?></td>
+              <td><?php echo $row['total_exp']; ?></td>
+              <td><?php echo $row['curr_loc']; ?></td>
+              <td><?php echo "<b><a href=\"page1.php?id={$row['id']}\">View</a></b>";?></td> 
+            </tr>
+      </tbody>
+	  <?php
+	  }
+	  ?>
 </table>
-</form>
 <?php
 include("footer.php");
 ?>

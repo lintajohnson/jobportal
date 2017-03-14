@@ -81,11 +81,11 @@ if(empty($_POST["resume"])) {
 	else{
     $favorites = test_input($_POST["favorites"]);
 	}
-	if(empty($_POST["fileupload"])) {
+	if(empty($_POST["fileToUpload"])) {
 		$fileerror="";
 	}
 	else{
-    $fileupload = test_input($_POST["fileupload"]);
+    $fileupload = test_input($_POST["fileToUpload"]);
 	}
 	
 
@@ -100,7 +100,7 @@ if(empty($_POST["resume"])) {
 		$current=$_POST['current'];
 		$favor=$_POST['favor'];
 		$favorites=$_POST['favorites'];
-		$fileupload=$_POST['fileupload'];
+		$fileupload=$_POST['fileToUpload'];
 if($emailerror != "" || $passerror != "" || $nameerror != ""  ||$locerror!="" || $noerror!="" || $ziperror!="" || $keyerror!="" || $resumeerror!="" || $currerror!="" ||$favorerror!="" ||$faverror!="" || $fileerror!="")
 {
    echo "Error!";
@@ -115,7 +115,7 @@ else{
 	
 	
 ?>
-<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
+<form action="upload.php" enctype="multipart/form-data"><?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>
 <table border='0' width='480px'align='center'>
 <tr>
    <td><h1>CREATE YOUR ACCOUNT</h1></td>
@@ -202,12 +202,15 @@ else{
 </tr>
 <tr>
     <td align='center'>Attach Resume:</td>
-    <td><input type="file" name="fileupload" value="fileupload" id="fileupload"></td>
-	<td><span class="error"> <?php echo $fileerror;?></span></td>
+    <td><input type="file" name="fileToUpload" id="fileToUpload"></td>
+	<td><span class="error"><?php echo $fileerror;?></span></td>
+    
+	
 </tr>
 <tr>
 <td>&nbsp;</td>
 </tr>
+
 <table border='0' width='480px' align='center'>
 <tr>
     <td align='center'><input type='submit' name='submit' value="CREATE ACCOUNT"></td>

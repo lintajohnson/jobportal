@@ -98,4 +98,20 @@
 				.bod{
 					background-color:gray;
 				}
+				.form {
+width:400px;
+float:left;
+
+padding-left:30px
+}
+.divD {
+width:200px;
+height:480px;
+
+float:left;
+
+}
+.clear {
+clear:both
+}
 			
