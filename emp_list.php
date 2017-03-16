@@ -1,9 +1,10 @@
 <?php
 include("header.php");
+include("session.php");
 ?>
 
 <?php
-
+ 
 		
          $in=$link->query("SELECT *FROM user_register");
 		
@@ -11,7 +12,7 @@ include("header.php");
 ?>
 
 <table  border="10" width='480px'align='center'>
-<thead>
+<thead> 
    <tr>
       <th colspan="6"> <h3><br>EMPLOYEE LIST</h3></th>
 	  

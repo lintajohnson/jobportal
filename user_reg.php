@@ -1,8 +1,8 @@
 <?php
 include("header.php");
-
+include("upload.php");
 ?>
-<form action="upload.php" method="post" enctype="multipart/form-data">
+<form method="post" enctype="multipart/form-data">
 <table border='0' width='480px'align='center'>
 <tr>
    <td><h1>CREATE YOUR ACCOUNT</h1></td>

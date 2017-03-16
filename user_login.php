@@ -1,29 +1,26 @@
 <?php
-$link = mysqli_connect("localhost", "root","", "jobportal");
 include("header.php");
-?>
-<?php
-$error="";
-if (isset($_POST['login'])) {
-if (empty($_POST['name']) || empty($_POST['password']))
-	{
-$error = "*Username or Password is invalid";
-}
-}
-
-$sql="SELECT email,password FROM user_register ";
-
-if ($result=mysqli_query($link,$sql))
-  {
-  while ($row=mysqli_fetch_row($result))
+session_start();
+if($_SERVER["REQUEST_METHOD"]=="POST")
+{
+	$username=mysqli_real_escape_string($link,$_POST['email']);
+	$password=md5(mysqli_real_escape_string($link,$_POST['password']));
+	$selectsql="SELECT id FROM user_register WHERE email='$username' and password= '$password' ";
+	$result=mysqli_query($link,$selectsql);
+	$row=mysqli_fetch_array($result);
+	$count=mysqli_num_rows($result);
+	
+	if($count==1)
     {
-    printf ($row[0],$row[1]);
+    $_SESSION['login_user']=$username;
+    header("location: user_search.php");
     }
-  mysqli_free_result($result);
-}
-
-mysqli_close($link);
-?>
+    else
+    {
+    $error="Your username or Password is incorrect";
+    }
+    }
+	
 
 ?>
 
@@ -35,7 +32,7 @@ mysqli_close($link);
 <table border='0' width='480px' align='center'>
 <tr>
     <td align='center'>Email Id:</td>
-    <td><input type='text' name='name'></td>
+    <td><input type='text' name='email'></td>
 </tr>
 <tr>
     <td align='center'>Password:</td>

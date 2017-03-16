@@ -3,18 +3,19 @@ include("header.php");
 
 ?>
 <?php
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if(isset($_POST["regist"])){
+	
 	if (empty($_POST["email"])) {
     $emailerror = "email is required";
     } 
 	else {
-  $email= test_input($_POST["email"]);
+    $email= test_input($_POST["email"]);
 	if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-      $emailerror = "Invalid email format"; 
+    $emailerror = "Invalid email format"; 
     }
 	}
-if(empty($_POST["pass"])) {
+  
+	if(empty($_POST["pass"])) {
 	$passerror="password is required";
 	}
 	else{
@@ -23,99 +24,96 @@ if(empty($_POST["pass"])) {
     $passerror = 'Passwords should be same<br>'; 
     }
 	}
+    if(empty($_POST["comp"])) {
+		$nameerror="company Name is required";
+	}
+	else{
+    $comp = test_input($_POST["comp"]);
+	if (!preg_match("/^[a-zA-Z ]*$/",$comp)) {
+      $nameerror = "Only letters and white space allowed"; 
+    }
+	}
+	if(empty($_POST["choose"])) {
+		$comperror="type is required";
+	}
+	else{
+    $choose = test_input($_POST["choose"]);
+	}
+	if(empty($_POST["favorites"])) {
+		$faverror="";
+	}
+	else{
+    $favorites = test_input($_POST["favorites"]);
+	}
+	if(empty($_POST["add"])) {
+		$adderror="address is required";
+	}
+	else{
+  $add = test_input($_POST["add"]);
+	}
+	if(empty($_POST["count"])) {
+		$counterror="";
+	}
+	else{
+  $count = test_input($_POST["count"]);
+}
+if(empty($_POST["state"])) {
+		$stateerror="";
+	}
+	else{
+    $state = test_input($_POST["state"]);
+	}
+	if(empty($_POST["city"])) {
+		$cityerror="";
+	}
+	else{
+    $city = test_input($_POST["city"]);
+	}
+	if(empty($_POST["pin"])) {
+		$pinerror="";
+	}
+	else{
+    $pin = test_input($_POST["pin"]);
+	}
+	if(empty($_POST["contact"])) {
+		$contacterror="contact no: is required";
+	}
+	else{
+    $contact = test_input($_POST["contact"]);
+	}
+	if(empty($_POST["person"])) {
+		$pererror="";
+	}
+	else{
+    $person = test_input($_POST["person"]);
+	}
 
-if (empty($_POST["comp"])) {
-$nameerror = "Name is required";
-} 
-else {
-$comp = test_input($_POST["comp"]);
-if (!preg_match("/^[a-zA-Z ]*$/",$comp)) {
-$nameerror = "Only letters and white space allowed";
-}
-}
-if (empty($_POST["company_type"])) {
-$noerror = "Type is required";
-} 
-else {
-$company_type = test_input($_POST["company_type"]);
-}
-if (empty($_POST["favorites"])) {
- $faverror="";
-}
-else {
-$favorites= test_input($_POST["favorites"]);
-}
-if (empty($_POST["add"])) {
- $adderror="";
-}
-else {
-$add= test_input($_POST["add"]);
-}
-if (empty($_POST["count"])) {
- $counterror="";
-}
-else {
-$count= test_input($_POST["count"]);
-}
-if (empty($_POST["state"])) {
- $stateerror="";
-}
-else {
-$state = test_input($_POST["state"]);
-}
-if (empty($_POST["city"])) {
- $cityerror="";
-}
-else {
-$city = test_input($_POST["city"]);
-}
-if (empty($_POST["pin"])) {
- $pinerror="";
-}
-else {
-$pin = test_input($_POST["pin"]);
-}
-if(empty($_POST["contact"])){
-	$contacterror="no: is required";
-}
-else{
-	$contact=test_input($_POST["contact"]);
-}
-if(empty($_POST["person"])){
-	$personerror="name is required";
-}
-else{
-	$person=test_input($_POST["person"]);
-}
-}
-?>
-<?php
 
-if(isset($_POST["regist"]))
-	{
-		$em=$_POST['email'];
-		$pa=md5($_POST['pass']);
-		$cmy=$_POST['comp'];
-		$co=$_POST['CompanyType'];
-		$fav=$_POST['favorites'];
-		$ad=$_POST['add'];
-		$nt=$_POST['count'];
-		$st=$_POST['state'];
-		$ci=$_POST['city'];
-		$pi=$_POST['pin'];
-		$tact=$_POST['contact'];
-		$per=$_POST['person'];
-	if($emailerror != "" || $passerror != "" || $comperror != ""  ||$locerror!="" || $noerror!="" || $ziperror!="" || $keyerror!="" || $resumeerror!="" || $currerror!="" ||$favorerror!="" ||$faverror!="" || $fileerror!="")
-{
-   echo "Error!";
-}
-		$in=$link->query("insert into employer_register(email,password,comp_name,comp_type,industry_type,address,country,state,city,pin_code,contact_no,contact_person) values('$em','$pa','$cmy','$co','$fav','$ad','$nt','$st','$ci','$pi','$tact','$per')");
-		if($in>0)
-		{
-			echo"inserted sucessfully";
+	
+		$email=$_POST['email'];
+		$pass=md5($_POST['pass']);
+		$comp=$_POST['comp'];
+		$choose=$_POST['choose'];
+		$favorites=$_POST['favorites'];
+		$add=$_POST['add'];
+		$count=$_POST['count'];
+		$state=$_POST['state'];
+		$city=$_POST['city'];
+		$pin=$_POST['pin'];
+		$contact=$_POST['contact'];
+		$person=$_POST['person'];
+	
+	
+	if($emailerror != "" || $passerror != "" || $nameerror != ""  ||$comperror!="" || $faverror!="" || $adderror!="" || $counterror!="" || $stateerror!="" || $cityerror!="" ||$pinerror!="" ||$contacterror!="" || $pererror!="")
+        {
+           echo 'Error';
+        }
+		else{
+		$in=$link->query("insert into employer_register(email,password,comp_name,comp_type,industry_type,address,country,state,city,pin_code,contact_no,contact_person) values('$email','$pass','$comp','$choose','$favorites','$add','$count','$state','$city','$pin','$contact','$person')");
+	
+		echo "sucessfully inserted!";
 		}
-		else
-			echo"failed";
+		
 	}
 	?>
 
@@ -143,7 +141,7 @@ if(isset($_POST["regist"]))
 <tr>
     <td align='center'>Confirm Password:</td>
     <td><input type="password" name="confirm"></td>
-	<td><span class="error"><?php echo $conerror;?></span></td>
+	
 </tr>
 <tr>
     <td align='center'>Company Name:</td>
@@ -153,10 +151,10 @@ if(isset($_POST["regist"]))
 </tr>
 <tr>
     <td align='center'>Company Type:</td>
-    <td><input type="radio" name="chooseone" value="company"><label for="company">Company</label>
-	<input type="radio" name="chooseone" value="consltant"><label for="consltant">Consltant</label>
+    <td><input type="radio" name="choose" value="company"><label for="company">Company</label>
+	<input type="radio" name="choose" value="consltant"><label for="consltant">Consltant</label>
 	</td>
-	<td><span class="error">* <?php echo $noerror;?></span></td>
+	<td><span class="error">* <?php echo $comperror;?></span></td>
 </tr>
 <tr>
     <td align='center'>Industry Type:</td>
@@ -172,7 +170,7 @@ if(isset($_POST["regist"]))
 <tr>
     <td align='center'>Address:</td>
     <td><input type="text" name="add"></td>
-	<td><span class="error"><?php echo $adderror;?></span></td>
+	<td><span class="error">*<?php echo $adderror;?></span></td>
 </tr>
 <tr>
     <td align='center'>Country:</td>
@@ -203,7 +201,7 @@ if(isset($_POST["regist"]))
 <tr>
     <td align='center'>Contact Person:</td>
     <td><input type="text" name="person"></td>
-	<td><span class="error">* <?php echo $personerror;?></span></td>
+	<td><span class="error"><?php echo $pererror;?></span></td>
 	
 	
 </tr>

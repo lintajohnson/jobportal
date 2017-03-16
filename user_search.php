@@ -1,5 +1,6 @@
 <?php
 include("header.php");
+include("session1.php");
 ?>
 <form action="" method="post">
 <table border='0' width='480px'align='center'>

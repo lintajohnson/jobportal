@@ -35,7 +35,7 @@ while ($row1 = mysqli_fetch_array($in1)) {
 <td><span><b>Basic graduation:<b></span><?php echo $row1['basic_grad']; ?><br/></td>
 </tr>
 <tr>
-<td><span><b>Attach Resume:<b></span> <?php echo" <a href='download.php?file=".$row1['attach_res']."'>Dowload File</a>" ;?> <br/>
+<td><span><b>Attach Resume:<b></span> <?php echo" <a href='download.php?file=".$row1['attach_res']."'>Download File</a>" ;?> <br/>
 
 </td>
 </tr>
